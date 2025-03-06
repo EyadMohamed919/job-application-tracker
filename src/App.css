@@ -1,0 +1,57 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.App {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.number-box{
+  @apply w-full h-full mt-0 mb-0 flex flex-col rounded-xl border-solid border-2;
+}
+
+.salary-box{
+  @apply w-48 h-32 ml-0 mr-3 mt-0 mb-1  flex flex-col rounded-xl shadow-bottom-black border-solid border-2 border-black;
+}
+
+.page-subtitle{
+  @apply text-3xl text-black flex flex-row justify-center items-center w-max h-max m-auto ml-0;
+}
+
+.job-card{
+  @apply w-full h-max flex bg-white shadow-bottom-black border-solid border-black border-2 rounded-xl p-2 mb-4;
+}
+
+.status-box{
+  @apply w-48 h-32 mt-0 mb-1  flex flex-col rounded-xl shadow-bottom-black border-solid border-2 border-black;
+}
+
+.form-input-box{
+  @apply h-14 m-auto mt-1 border-2 border-solid border-black pl-1 rounded-md;
+}
