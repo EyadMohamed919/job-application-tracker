@@ -3,9 +3,7 @@ import React from "react";
 function JobForm()
 {
     return(
-        
-        
-            <form id="jobForm" className="w-[80%] h-[80%] z-20 p-2 border-solid border-2 border-black bg-white rounded-lg shadow-bottom-black 
+            <form method="get" action="../form" id="jobForm" className="w-[80%] h-[80%] z-20 p-2 border-solid border-2 border-black bg-white rounded-lg shadow-bottom-black 
             fixed flex flex-col justify-start items-center top-[200%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 transition-all duration-500">
                 <div className="w-full h-14 rounded-tr-md rounded-tl-md flex justify-end items-center">
                     
@@ -37,6 +35,7 @@ function JobForm()
                     className="form-input-box"></input>
                 </div>
             </div>
+            <button type="submit">Done</button>
             </form>
     );
 }
