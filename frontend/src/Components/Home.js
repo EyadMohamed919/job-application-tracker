@@ -4,9 +4,9 @@ import JobForm from "./JobForm";
 function Home()
 {
     return(
-        <div className="w-full h-max m-auto mt-10 flex flex-col">
+        <div className="w-[80%] h-max m-auto mt-10 flex flex-col">
             <JobForm></JobForm>
-            <div className="w-full h-52 m-auto flex">
+            <div className="max-w-full h-52 m-auto flex">
                 <div className="number-box shadow-bottom-red ml-0 mr-2 text-red-900  bg-red-400 border-red-900">
                     <h3 className="h-max pt-7 text-6xl flex justify-center items-center font-bold m-auto">19</h3>
                     <h3 className="h-max text-2xl flex justify-center items-center m-auto">Rejected</h3>

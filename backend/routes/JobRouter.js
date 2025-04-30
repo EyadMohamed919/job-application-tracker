@@ -1,6 +1,6 @@
 const express = require("express");
 const Job = require("../models/Job");
-const jobRouter = express.jobRouter;
+const jobRouter = express.Router();
 
 jobRouter.get("/", async (req, res)=>{
     try {
@@ -13,11 +13,13 @@ jobRouter.get("/", async (req, res)=>{
     }
     
 }).post("/", (req, res)=>{
+    console.log(req.body);
+    console.log("Hello world");
     try {
-        Job.create(req.body());
+        Job.create(req.body);
         console.log("Created Job successfully");
     } catch (error) {
-        console.log("Failed creating job " + error);
+        console.log("Failed creating job ");
     }
 });
 
