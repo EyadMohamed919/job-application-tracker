@@ -17,8 +17,6 @@ function JobForm({isVisible, setIsVisible}) {
     period: "per year",
   });
 
-  
-
 
   useEffect(() => {
     setIsVisible(isVisible);
@@ -212,7 +210,7 @@ function JobForm({isVisible, setIsVisible}) {
             className="form-input-box"
           >
             <option value="Pending">Pending</option>
-            <option value="Approved">Approved</option>
+            <option value="Accepted">Approved</option>
             <option value="Rejected">Rejected</option>
           </select>
         </div>

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import React from 'react'
 
-function StatusBar() {
+function StatusBar({noAccepted}) {
   
     const icons = [
         "fa-solid fa-hourglass-start",
@@ -36,7 +36,7 @@ function StatusBar() {
             </h3>
         </div>
         <div className="number-box shadow-bottom-green ml-2 mr-0 text-green-900 bg-green-400 border-green-900">
-            <h3 className="h-max pt-7 text-6xl flex justify-center items-center font-bold m-auto">3</h3>
+            <h3 className="h-max pt-7 text-6xl flex justify-center items-center font-bold m-auto">{noAccepted}</h3>
             <h3 className="h-max text-2xl flex justify-center items-center m-auto">Accepted</h3>
         </div>   
     </div>
