@@ -9,24 +9,9 @@ function Home()
 {
     const [isVisible, setIsVisible] = useState(false);
     const [noAccepted, setNoAccepted] = useState(0);
-
-    const jobPlaceholder = [{
-        title: "Job Title",
-        company: "Company Name",
-        companyDescription: "Company Description",
-        location: "Location",
-        employmentType: "Employment Type",
-        date: "12-10-26",
-        experience: "Experience Level",
-        source: "Job Listing Source",
-        status: "Application Status",
-        salary: {
-          amount: 1500000,
-          period: "Yearly",
-        },
-      }];
+    const [isLoading, setIsLoading] = useState(true);
   
-    const [jobs, setJobs] = useState(jobPlaceholder)
+    const [jobs, setJobs] = useState(null);
 
     useEffect(() => {
         
@@ -34,6 +19,11 @@ function Home()
             const response = await axios.get("http://localhost:5000/api/job");
             const jobsData = response.data;
             setJobs(jobsData);
+            
+            setTimeout(() => {
+                setIsLoading(false);
+            }, 3000);
+            
 
             const acceptedJobs = jobsData.filter(job => job.status == "Accepted");
 
@@ -47,6 +37,7 @@ function Home()
         <div className="w-[80%] h-max m-auto mt-10 flex flex-col">
             <JobForm isVisible={isVisible} setIsVisible={setIsVisible}></JobForm>
             <StatusBar noAccepted={noAccepted}></StatusBar>
+            
             <div>
                 <div className="mt-4 mb-2 w-full h-fit flex justify-center items-center">
                     <h2 className="page-subtitle">Recent Jobs</h2>
@@ -58,8 +49,11 @@ function Home()
 
                     
                 </div>
+
+                {isLoading ? (<div>Loading applications...</div>):(<></>)}
+                
                 <div className="overflow-y-scroll h-[320px]">
-                    {jobs && jobs.length > 0 ? jobs.map((job)=>{
+                    {jobs && jobs.length && !isLoading > 0 ? jobs.map((job)=>{
                         return(<JobCard 
                             jobTitle={job.title}
                             companyName={job.company}
