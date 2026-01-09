@@ -8,6 +8,7 @@ module.exports = {
       boxShadow:{
         "top-gray": "0px -2px 0px #b0b0b0",
         "bottom-black": "0px 5px 0px black",
+        "bottom-yellow": "0px 5px 0px #713f12",
         "bottom-red": "0px 5px 0px #7f1d1d",
         "bottom-light-red": "0px 5px 0px #ef4444",
         "bottom-gray": "0px 5px 0px #111827",
