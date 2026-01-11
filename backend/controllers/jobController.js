@@ -15,9 +15,10 @@ const getAllJobApplications = async (req, res)=>{
 const createJobApplication = async (req, res) =>{
     
     try {
-        Job.create(req.body);
+        const job = await Job.create(req.body);
         res.status(200).json({
-            "message":"Job Application Created Successfully"
+            "message":"Job Application Created Successfully",
+            "job":job
         });
         console.log(req.body);
     } catch (error) {
