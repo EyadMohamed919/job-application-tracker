@@ -14,7 +14,7 @@ const getAllUsers = async (req, res) =>{
 
 const login = async (req, res) =>{
     try {
-        const user = await User.findOne({email: req.body});
+        const user = await User.findOne({email: req.body.email});
         if(user.password == req.body.password && user.email == req.body.email)
         {
             res.status(200).json({
@@ -36,8 +36,9 @@ const login = async (req, res) =>{
     } catch (error) {
         res.status(500).json({
             "message":"Failed to Fetch User",
-            "user": user
+            "error":error
         });
+        console.log("Failed to login user" + error);
     }
 }
 
@@ -76,4 +77,4 @@ const createUser = async (req, res) =>{
     
 }
 
-module.exports = { getAllUsers, createUser };
+module.exports = { getAllUsers, createUser, login };

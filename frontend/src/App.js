@@ -2,13 +2,16 @@ import logo from './logo.svg';
 import './App.css';
 import SideBar from './Components/SideBar';
 import Home from './Components/Home';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import Growth from './Components/Growth';
-
+import { AuthContext } from './AuthContext';
 function App() {
   
   const [isHomeVisible, setIsHomeVisible] = useState(true);
+  const { getUserData } = useContext(AuthContext);
+  const user = getUserData();
 
+  console.log(user);
   return (
     <div className="App w-full h-full flex flex-col pt-2">
       <div className="w-[95%] h-16 flex justify-center shadow-bottom-black items-center pt-1 pb-1 mt-2 bg-white rounded-lg border-solid border-black border-2">
