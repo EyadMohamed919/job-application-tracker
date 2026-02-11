@@ -5,29 +5,46 @@ import JobForm from "./JobForm";
 import JobCard from "./JobCard";
 import StatusBar from "./StatusBar";
 
+axios.defaults.withCredentials = true;
 function Home()
 {
     const [isVisible, setIsVisible] = useState(false);
+    const [jobsMessage, setJobsMessage] = useState("");
     const [noAccepted, setNoAccepted] = useState(0);
     const [isLoading, setIsLoading] = useState(true);
+    
   
     const [jobs, setJobs] = useState(null);
 
     useEffect(() => {
         
         const fetchJobs = async()=>{
-            const response = await axios.get("http://localhost:5000/api/job");
-            const jobsData = response.data;
-            setJobs(jobsData);
-            
-            setTimeout(() => {
+            try {
+                const response = await axios.get("http://localhost:5000/api/job", {
+                    withCredentials:true
+                });
+                const jobsData = response.data;
+                setJobs(jobsData);
+                
                 setIsLoading(false);
-            }, 3000);
-            
 
-            const acceptedJobs = jobsData.filter(job => job.status == "Accepted");
+                const acceptedJobs = jobsData.filter(job => job.status == "Accepted");
 
-            setNoAccepted(acceptedJobs.length);
+                setNoAccepted(acceptedJobs.length);
+
+                if(noAccepted <= 0)
+                {
+                    setJobsMessage("No Applications found");
+                }
+                else
+                {
+                    setJobsMessage("");
+                }
+
+            } catch (error) {
+                setIsLoading(false);
+                setJobsMessage("Error while fetching applications");
+            }
         };
 
         fetchJobs()
@@ -67,7 +84,7 @@ function Home()
                             salary={job.salary.amount}
                             period={job.salary.period}
                             ></JobCard>);
-                    }) : (<>No application found</>)}
+                    }) : (<>{jobsMessage}</>)}
                 </div>
                 
                

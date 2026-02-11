@@ -1,4 +1,5 @@
 const User = require("../models/UserModel");
+const jwt = require("jsonwebtoken");
 
 const getAllUsers = async (req, res) =>{
     try {
@@ -12,35 +13,51 @@ const getAllUsers = async (req, res) =>{
     }
 }
 
-const login = async (req, res) =>{
+const login = async (req, res) => {
     try {
-        const user = await User.findOne({email: req.body.email});
-        if(user.password == req.body.password && user.email == req.body.email)
-        {
-            res.status(200).json({
-                "message":"User Logged In Successfully",
-                "user":user
+        const user = await User.findOne({ email: req.body.email });
+
+        if (user && user.password === req.body.password) {
+            const token = jwt.sign({
+                fname: user.fname,
+                lname: user.lname,
+                email:user.email
+            }, "anykey", { expiresIn: "3d" });
+
+            res.cookie("token", token, {
+                httpOnly: true,
+                sameSite: 'strict',
+                path: "/",
+                maxAge: 3 * 24 * 60 * 60 * 1000,
+                expiresIn: 3 * 24 * 60 * 60 * 1000
             });
-            console.log("User Logged In Successfully");
-        }
-        else
-        {
-            res.status(404).json({
-                "message":"Incorrect Credentials"
+            
+
+            console.log(token);
+
+            // 2. Send the JSON response LAST and RETURN
+            return res.status(200).json({
+                "message": "User Logged In Successfully",
+                "user": {
+                    fname: user.fname,
+                    lname: user.lname,
+                    email: user.email
+                }
             });
 
-            console.log("Incorrect Credentials");
+        } else {
+            // 3. Always use return when sending error responses
+            return res.status(401).json({ "message": "Incorrect Credentials" });
         }
-        
-        
+
     } catch (error) {
-        res.status(500).json({
-            "message":"Failed to Fetch User",
-            "error":error
+        console.error("Login error:", error);
+        return res.status(500).json({
+            "message": "Failed to Fetch User",
+            "error": error.message
         });
-        console.log("Failed to login user" + error);
     }
-}
+};
 
 const getUser = async (req, res) =>{
     try {

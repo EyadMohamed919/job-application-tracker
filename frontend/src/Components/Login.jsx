@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import axios from "axios";
 import { Link, Router, useNavigate } from 'react-router';
 import { AuthContext } from '../AuthContext';
@@ -8,9 +8,22 @@ function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [message, setMessage] = useState(null);
-
+    const [coverOn, setCoverOn] = useState(false);
+    
     const navigate = useNavigate();
-    const { login } = useContext(AuthContext);
+    const { login, user } = useContext(AuthContext);
+
+
+    if(user != null)
+    {
+      navigate("/");
+    }
+
+    // useEffect(() => {
+    //   setCoverOn(coverOn);
+    // }, [coverOn]);
+
+    
 
     const handleLogin = async (e) =>{
       e.preventDefault();
@@ -24,8 +37,11 @@ function Login() {
         console.log("Success:", response.data.message);
         if(response)
         {
-          login(response.data.user);
-          navigate("/");
+          setCoverOn(!coverOn);
+          setTimeout(() => {
+            login(response.data.user);
+            navigate("/");
+          }, 500);
         }
         
     } catch (error) {
@@ -53,7 +69,11 @@ function Login() {
             <button type="submit" className="h-20 mt-10 rounded-lg border-2 bg-white border-black border-solid shadow-bottom-black p-2 text-xl transition-all duration-200
             hover:bg-black hover:text-white hover:shadow-none">Submit</button>
         </form>
+
+        <div className={`absolute bg-black left-0 w-full transition-all duration-200 h-full ${!coverOn ? "top-[100%]" : "top-0"}`}>
+        </div>
     </div>
+    
   )
 }
 
