@@ -6,6 +6,7 @@ import { useContext, useState } from 'react';
 import Growth from './Components/Growth';
 import { AuthContext } from './AuthContext';
 import { useNavigate } from 'react-router';
+import axios from 'axios';
 
 function App() {
   
@@ -20,10 +21,15 @@ function App() {
     navigate("Login");
   }
  
-  function logoutUser()
+  async function logoutUser()
   {
-    logout();
-    navigate("/Login");
+    const response = await axios.get("http://localhost:5000/api/user/logout");
+    console.log(response);
+    if(response){
+      
+      logout();
+      navigate("/Login");
+    }
   }
 
   setTimeout(()=>setCoverOn(false), 500)

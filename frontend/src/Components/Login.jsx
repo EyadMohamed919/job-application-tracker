@@ -25,6 +25,8 @@ function Login() {
     // }, [coverOn]);
 
     const LoginWithToken = async () =>{
+      try {
+        
         const response = await axios.post("http://localhost:5000/api/user/login/token", {
         }, {withCredentials:true});
         console.log("Extracted Cookie: " + response.data);
@@ -37,6 +39,9 @@ function Login() {
             navigate("/");
           }, 500);
         }
+      } catch (error) {
+        
+      }
     }
 
     LoginWithToken();

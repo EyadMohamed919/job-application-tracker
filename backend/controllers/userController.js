@@ -13,7 +13,7 @@ const getAllUsers = async (req, res) =>{
     }
 }
 
-const LoginWithToken = async (req, res) =>{
+const loginWithToken = async (req, res) =>{
     try {
         console.log(req.cookies);
         const token = req.cookies ? req.cookies.token : null;
@@ -25,7 +25,7 @@ const LoginWithToken = async (req, res) =>{
         else
         {
             jwt.verify(token, "anykey", (err, decoded)=>{
-                if(err) res.status(403).json({ message: "Invalid token" });
+                if(err) return res.status(403).json({ message: "Invalid token" });
                 console.log(decoded);
                 res.status(200).json({
                     "message": "User Logged In Successfully",
@@ -81,7 +81,6 @@ const login = async (req, res) => {
             });
 
         } else {
-            // 3. Always use return when sending error responses
             return res.status(401).json({ "message": "Incorrect Credentials" });
         }
 
@@ -93,6 +92,23 @@ const login = async (req, res) => {
         });
     }
 };
+
+ const logout =  (req, res) =>{
+    // const token = jwt.sign({"logout":true}, "anykey", {"expiresIn":new Date(0)})
+    console.log("Attempting to Logout");
+    res.cookie("token", "token", {
+        httpOnly: true,
+        sameSite: 'strict',
+        path: "/",
+        maxAge: 3 * 24 * 60 * 60 * 1000,
+        expiresIn: 0
+    });
+
+    res.status(200).json({
+        message:"Logged out successfully"
+    });
+
+ };
 
 const getUser = async (req, res) =>{
     try {
@@ -129,4 +145,4 @@ const createUser = async (req, res) =>{
     
 }
 
-module.exports = { getAllUsers, createUser, login, LoginWithToken };
+module.exports = { getAllUsers, createUser, login, loginWithToken, logout};
