@@ -1,5 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react';
 import axios from "axios";
+import Cookies from "js-cookie";
 import { Link, Router, useNavigate } from 'react-router';
 import { AuthContext } from '../AuthContext';
 
@@ -23,18 +24,35 @@ function Login() {
     //   setCoverOn(coverOn);
     // }, [coverOn]);
 
-    
+    const LoginWithToken = async () =>{
+        const response = await axios.post("http://localhost:5000/api/user/login/token", {
+        }, {withCredentials:true});
+        console.log("Extracted Cookie: " + response.data);
+
+        if(response)
+        {
+          setCoverOn(!coverOn);
+          setTimeout(() => {
+            login(response.data.user);
+            navigate("/");
+          }, 500);
+        }
+    }
+
+    LoginWithToken();
 
     const handleLogin = async (e) =>{
       e.preventDefault();
       
       try {
-        const response = await axios.post("http://localhost:5000/api/user/login", {
-            email,
-            password
-        });
         
-        console.log("Success:", response.data.message);
+        const response = await axios.post("http://localhost:5000/api/user/login", {
+              email,
+              password
+          });
+          
+          console.log("Success:", response.data.message);
+
         if(response)
         {
           setCoverOn(!coverOn);

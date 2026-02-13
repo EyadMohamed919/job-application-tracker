@@ -13,6 +13,41 @@ const getAllUsers = async (req, res) =>{
     }
 }
 
+const LoginWithToken = async (req, res) =>{
+    try {
+        console.log(req.cookies);
+        const token = req.cookies ? req.cookies.token : null;
+        console.log("Token from upcomings: " + token);
+        if(!token)
+        {
+            res.status(403).json({ message: "Invalid token" });
+        }
+        else
+        {
+            jwt.verify(token, "anykey", (err, decoded)=>{
+                if(err) res.status(403).json({ message: "Invalid token" });
+                console.log(decoded);
+                res.status(200).json({
+                    "message": "User Logged In Successfully",
+                    "user": {
+                        fname: decoded.fname,
+                        lname: decoded.lname,
+                        email: decoded.email
+                    }
+                })
+            });
+
+
+        }
+    } catch (error) {
+        console.error("LoginWithToken error:", error);
+        return res.status(500).json({
+            "message": "Failed to Fetch User Using Token",
+            "error": error.message
+        });
+    }
+};
+
 const login = async (req, res) => {
     try {
         const user = await User.findOne({ email: req.body.email });
@@ -94,4 +129,4 @@ const createUser = async (req, res) =>{
     
 }
 
-module.exports = { getAllUsers, createUser, login };
+module.exports = { getAllUsers, createUser, login, LoginWithToken };
