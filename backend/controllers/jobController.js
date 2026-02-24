@@ -1,4 +1,5 @@
 const Job = require("../models/JobModel");
+const { getJson } = require("serpapi");
 
 const getAllJobApplications = async (req, res)=>{
     try {
@@ -29,5 +30,21 @@ const createJobApplication = async (req, res) =>{
         console.log(error);
     }
 };
+
+const getJobPostings = async () =>{
+    
+
+    getJson({
+      engine: "google_jobs",
+      q: "Barista",
+      location: "Austin, Texas, United States",
+      google_domain: "google.com",
+      hl: "en",
+      gl: "us",
+      api_key: "3ec099c38bb21d22615659ed0309a340b623d6f03ca3f2418a74ac9a0a0380d4"
+    }, (json) => {
+      console.log(json["jobs_results"]);
+    }); 
+}
 
 module.exports = [getAllJobApplications, createJobApplication];

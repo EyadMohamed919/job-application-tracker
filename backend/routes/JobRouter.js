@@ -4,5 +4,6 @@ const jobRouter = express.Router();
 
 jobRouter.get("/", getAllJobApplications)
 jobRouter.post("/", createJobApplication);
+jobRouter.post("/postings", createJobApplication);
 
 module.exports = jobRouter;
