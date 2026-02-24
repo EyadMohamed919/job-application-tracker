@@ -4,7 +4,7 @@ const connectDB = require("./config/MongoConfig");
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const jwt = require("jsonwebtoken");
-
+require('dotenv').config();
 const userRouter = require("./routes/userRouter");
 const PORT = 5000;
 const app = express();
@@ -45,6 +45,6 @@ const isAuthenticated = (req, res, next) =>{
 //app.use(isAuthenticated)
 
 // Routers
-app.use("/api/job", isAuthenticated, jobRouter);
+app.use("/api/job", jobRouter);
 app.use("/api/user", userRouter);
 app.listen(PORT, console.log(`Server is running on port ${PORT}`));

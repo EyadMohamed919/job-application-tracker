@@ -15,7 +15,6 @@ function App() {
   const [coverOn, setCoverOn] = useState(true);
   const user = getUserData();
   const navigate = useNavigate();
-  console.log(user);
   if(!user)
   {
     navigate("Login");
@@ -24,7 +23,6 @@ function App() {
   async function logoutUser()
   {
     const response = await axios.get("http://localhost:5000/api/user/logout");
-    console.log(response);
     if(response){
       
       logout();

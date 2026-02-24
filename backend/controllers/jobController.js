@@ -1,5 +1,7 @@
 const Job = require("../models/JobModel");
+const User = require("../models/UserModel");
 const { getJson } = require("serpapi");
+const jwt = require("jsonwebtoken");
 
 const getAllJobApplications = async (req, res)=>{
     try {
@@ -31,20 +33,52 @@ const createJobApplication = async (req, res) =>{
     }
 };
 
-const getJobPostings = async () =>{
-    
+const getJobPostings = async (req, res) => {
+    try {
+        const token = req.cookies ? req.cookies.token : null;
+        
+        if (!token) {
+            return res.status(403).json({ message: "Invalid token" });
+        }
 
-    getJson({
-      engine: "google_jobs",
-      q: "Barista",
-      location: "Austin, Texas, United States",
-      google_domain: "google.com",
-      hl: "en",
-      gl: "us",
-      api_key: "3ec099c38bb21d22615659ed0309a340b623d6f03ca3f2418a74ac9a0a0380d4"
-    }, (json) => {
-      console.log(json["jobs_results"]);
-    }); 
-}
+        const decoded = jwt.verify(token, "anykey");
+        const userEmail = decoded.email;
 
-module.exports = [getAllJobApplications, createJobApplication];
+        const user = await User.findOne({ email: userEmail });
+        
+        if (!user || !user.profession) {
+            return res.status(400).json({ message: "User profession not found" });
+        }
+
+        const userProfession = user.profession;
+
+        getJson({
+            engine: "google_jobs",
+            q: userProfession,
+            location: "Austin, Texas, United States",
+            google_domain: "google.com",
+            hl: "en",
+            gl: "us",
+            api_key: process.env.SERP_KEY,
+        }, (json) => {
+            if (json.error) {
+                return res.status(500).json({ error: json.error });
+            }
+
+            res.status(200).json({
+                postings: json["jobs_results"] || []
+            });
+        });
+
+    } catch (error) {
+        console.error("getJobPostings error:", error);
+        // Handle JWT expiration or DB errors specifically
+        const status = error.name === "JsonWebTokenError" ? 403 : 500;
+        return res.status(status).json({
+            "message": "Failed to fetch jobs",
+            "error": error.message
+        });
+    }
+};
+
+module.exports = [getAllJobApplications, createJobApplication, getJobPostings];
