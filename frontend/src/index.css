@@ -20,9 +20,9 @@ body {
   margin: 0;
   padding: 0;
   width: 100%;
+  overflow-y: scroll;
   height: 100%;
   font-family: modern-tech;
-  overflow: hidden;
   display: flex;
   align-items: center;
 }
@@ -32,10 +32,10 @@ code {
     monospace;
 }
 
-#root{
+/* #root{
   width: 100%;
   height: 100%;
-}
+} */
 
 #veepn-breach-alert{
   display: hidden;

@@ -7,6 +7,7 @@ import Growth from './Components/Growth';
 import { AuthContext } from './AuthContext';
 import { useNavigate } from 'react-router';
 import axios from 'axios';
+import Postings from './Components/Postings';
 
 function App() {
   
@@ -32,7 +33,7 @@ function App() {
 
   setTimeout(()=>setCoverOn(false), 500)
   return (
-    <div className="App w-full h-full flex flex-col pt-2">
+    <div className="App flex flex-col pt-2">
       <div className="w-[95%] h-16 relative flex justify-center shadow-bottom-black items-center pt-1 pb-1 mt-2 bg-white rounded-lg border-solid border-black border-2">
         <h1 className="h-max text-2xl font-bold text-black">Job Applications Tracker</h1>
 
@@ -41,16 +42,23 @@ function App() {
         hover:shadow-none hover:top-[0.35rem]
          text-red-900 justify-center items-center fa-solid fa-right-from-bracket"></i>
       </div>
-      <div className="w-[95%] relative overflow-hidden flex justify-center items-center">
+
+
+      <div className="w-[95%] h-[600px] mt-10  relative overflow-hidden flex justify-center items-center pb-2">
         <SideBar setIsHomeVisible={setIsHomeVisible}></SideBar>
         
         {isHomeVisible ? (<Home></Home>) : (<Growth></Growth>)}
+
       </div>
+        
+        <Postings/>
 
 
       <div className={`absolute bg-black left-0 w-full transition-all duration-200 h-full ${!coverOn ? "top-[-100%]" : "top-0"}`}>
       </div>
     </div>
+
+
   );
 }
 

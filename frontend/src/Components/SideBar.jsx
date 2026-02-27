@@ -3,7 +3,7 @@ import React from "react";
 function SideBar({setIsHomeVisible})
 {
     return(
-        <div className="w-[20%] min-w-[20%] h-[80%] bg-white pb-56 m-auto mt-10 mr-10 ml-0 border-black overflow-hidden shadow-bottom-black border-2 border-solid rounded-lg flex flex-col justify-center items-center">
+        <div className="w-[20%] min-w-[20%] h-[100%] bg-white pb-56 m-auto mr-10 ml-0 border-black overflow-hidden shadow-bottom-black border-2 border-solid rounded-lg flex flex-col justify-center items-center">
             <button onClick={()=>{setIsHomeVisible(true)}} className="flex m-auto w-full 
             h-8 transition-all duration-200 bg-white hover:bg-black hover:text-white
             border-b-2 border-b-solid border-b-black

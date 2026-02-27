@@ -50,25 +50,25 @@ function Home()
         fetchJobs()
     }, []);
 
-    useEffect(() => {
+    // useEffect(() => {
         
-        const fetchPostings = async()=>{
-            try {
-                const response = await axios.get("http://localhost:5000/api/job/postings", {
-                    withCredentials:true
-                });
-                  console.log(response.data);
+    //     const fetchPostings = async()=>{
+    //         try {
+    //             const response = await axios.get("http://localhost:5000/api/job/postings", {
+    //                 withCredentials:true
+    //             });
+    //               console.log(response.data);
                 
-            } catch (error) {
-                console.log(error);
-            }
-        };
+    //         } catch (error) {
+    //             console.log(error);
+    //         }
+    //     };
 
-        fetchPostings();
-    }, []);
+    //     fetchPostings();
+    // }, []);
     
     return(
-        <div className="w-[80%] h-max m-auto mt-10 flex flex-col">
+        <div className="w-[80%] h-max m-auto flex flex-col">
             <JobForm isVisible={isVisible} setIsVisible={setIsVisible}></JobForm>
             <StatusBar noAccepted={noAccepted}></StatusBar>
             

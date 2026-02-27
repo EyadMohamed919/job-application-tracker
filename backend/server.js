@@ -45,6 +45,6 @@ const isAuthenticated = (req, res, next) =>{
 //app.use(isAuthenticated)
 
 // Routers
-app.use("/api/job", jobRouter);
+app.use("/api/job", isAuthenticated,jobRouter);
 app.use("/api/user", userRouter);
 app.listen(PORT, console.log(`Server is running on port ${PORT}`));

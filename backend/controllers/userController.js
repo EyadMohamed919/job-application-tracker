@@ -56,7 +56,10 @@ const login = async (req, res) => {
             const token = jwt.sign({
                 fname: user.fname,
                 lname: user.lname,
-                email:user.email
+                email:user.email,
+                profession: user.profession,
+                degree: user.degree,
+                location:user.location
             }, "anykey", { expiresIn: "3d" });
 
             res.cookie("token", token, {
@@ -76,7 +79,10 @@ const login = async (req, res) => {
                 "user": {
                     fname: user.fname,
                     lname: user.lname,
-                    email: user.email
+                    email: user.email,
+                    profession: user.profession,
+                    degree: user.degree,
+                    location:user.location
                 }
             });
 
