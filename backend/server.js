@@ -1,5 +1,6 @@
 const express = require("express");
 const jobRouter = require("./routes/JobRouter");
+const goalRouter = require("./routes/GoalRouter");
 const connectDB = require("./config/MongoConfig");
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
@@ -47,4 +48,5 @@ const isAuthenticated = (req, res, next) =>{
 // Routers
 app.use("/api/job", isAuthenticated,jobRouter);
 app.use("/api/user", userRouter);
+app.use("/api/goal", isAuthenticated,goalRouter);
 app.listen(PORT, console.log(`Server is running on port ${PORT}`));
