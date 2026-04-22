@@ -7,8 +7,8 @@ const getAllJobApplications = async (req, res)=>{
     try {
         const job = await Job.find({});
         console.log("Fetched jobs successfully");
-        console.log(job);
-        res.json(job)
+        // console.log(job);
+        res.json(job);
     } catch (error) {
         console.log("Failed job fetching: " + error);
     }
