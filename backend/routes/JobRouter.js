@@ -2,7 +2,7 @@ const [getAllJobApplications, createJobApplication, getJobPostings] = require(".
 const express = require("express");
 const jobRouter = express.Router();
 
-jobRouter.get("/", getAllJobApplications)
+jobRouter.get("/", getAllJobApplications);
 jobRouter.post("/", createJobApplication);
 jobRouter.get("/postings", getJobPostings);
 

@@ -12,3 +12,5 @@ const getAllGoals = async (req, res)=> {
     }
 }
 
+module.exports = [getAllGoals];
+
