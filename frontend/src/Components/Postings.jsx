@@ -9,6 +9,8 @@ function Postings() {
 
     useEffect(()=>{
         const setValues = ()=>{
+            console.log(user);
+            
             if(user)
             {
                 setJob(user.profession);
