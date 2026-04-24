@@ -1,11 +1,12 @@
 import { createContext, useState, useEffect } from "react";
 import Cookies from "js-cookie";
+
 export const AuthContext = createContext();
 export const AuthProvider = ({ children }) =>{
     const [user, setUser] = useState(null);
-
     useEffect(()=>{
         const savedUser = sessionStorage.getItem("user");
+        
         if(savedUser)
         {
             setUser(JSON.parse(savedUser));
@@ -25,6 +26,7 @@ export const AuthProvider = ({ children }) =>{
     const getUserData = () =>{
         return user;
     }
+
 
     return (
         <AuthContext.Provider value={{ user, login, logout, getUserData }}>

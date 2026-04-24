@@ -32,7 +32,10 @@ const loginWithToken = async (req, res) =>{
                     "user": {
                         fname: decoded.fname,
                         lname: decoded.lname,
-                        email: decoded.email
+                        email: decoded.email,
+                        profession: decoded.profession,
+                        degree: decoded.degree,
+                        location:decoded.location
                     }
                 })
             });
